@@ -56,6 +56,13 @@ def main():
         )
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
+        # Downscale the image to a maximum dimension of 500 pixels
+        max_dimension = 500
+        image_height, image_width, _ = image.shape
+        if image_height > max_dimension or image_width > max_dimension:
+            scaling_factor = max_dimension / max(image_height, image_width)
+            image = cv2.resize(image, None, fx=scaling_factor, fy=scaling_factor)
+
         with st.sidebar:
             st.image(image, caption="Uploaded Image", width=300)
 
